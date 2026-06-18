@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import csv
+import pandas as pd
 
 
 try:
@@ -32,6 +33,7 @@ except requests.exceptions.HTTPError as e:
     print(f"Error: Books site returned bad response — {e}")
 
 
+
 try:
     book_data = []
     for book in books:
@@ -41,13 +43,14 @@ try:
         price_kes = round(price_gbp * rate, 2)
         book_data.append([book_title, price_gbp, price_kes])
 
-    with open("books.csv", "w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow(["Title", "Price (GBP)", "Price (KES)"])
-        writer.writerows(book_data)
+    df = pd.DataFrame(book_data, columns=["Title", "Price (GBP)", "Price (KES)"])
+    
+    
+    print(df.to_string(index=False))
 
-    print("Done! books.csv created.")
+    print("Saving CSV...")
+    df.to_csv(r"C:\Users\ADMIN\desktop\javascript\price_scraper\books.csv", index=False)
+    print("\nDone! books.csv created.")
 
 except Exception as e:
     print(f"Error processing data: {e}")
-
