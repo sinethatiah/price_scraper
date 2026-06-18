@@ -9,7 +9,7 @@ rate = exchange_response.json()["conversion_rate"]
 
 url = "https://books.toscrape.com/"
 response = requests.get(url)
-response.encoding = "utf-8"  # fix encoding here
+response.encoding = "utf-8" 
 soup = BeautifulSoup(response.text, "html.parser")
 
 book_data = []
@@ -22,5 +22,10 @@ for book in books:
     price_kes = round(price_gbp * rate, 2)
     print(f"{book_title} | £{price_gbp} | KES {price_kes}")
 
+with open("books.csv", "w", newline="" ) as f:
+    writer = csv.writer(f)
+    writer.writerow(["Title", "Price (GBP)", "Price (KES)"])  # header
+    writer.writerows(book_data)
 
+print("Done! books.csv created.")
 
