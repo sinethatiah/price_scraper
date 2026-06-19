@@ -8,7 +8,7 @@ Scrapes book titles and prices from [books.toscrape.com](https://books.toscrape.
 - Converts GBP → KES via [ExchangeRate-API](https://www.exchangerate-api.com/)
 - Displays results in a clean table (pandas)
 - Saves output to `books.csv`
-- Handles connection and HTTP errors gracefully
+- Handles connection and HTTP errors 
 
 ## Requirements
 
